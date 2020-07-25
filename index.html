@@ -62,6 +62,12 @@
                         <div id="validationwebsiteurl" class="text-danger">
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label for="birthdate">Birthdate:</label>
+                        <input type="date" class="form-control" id="birthdate" required oninput="checkbirthdatevalidation()">
+                        <div id="validationbirthdate" class="text-danger">
+                        </div>
+                      </div>
                     <button type="submit"  class="btn btn-primary">Submit</button>
                   </form>
                 </div>
@@ -94,7 +100,16 @@ var regform = document.getElementById("regform");
 const button = document.querySelector('button')
 button.disabled = true
 function changebtn(){
-if(regform[0].value!='' &&  email.test(regform[1].value) && pass.test(regform[2].value) && (regform[3].value=== regform[2].value) && url.test(regform[4].value))
+  regform[5].value 
+        var dateText =  regform[5].value.split("-");
+        month = dateText[1];
+        day = dateText[2];
+        year = dateText[0];
+        var date = new Date(year, month, day);
+        var today = new Date();
+        var mili_dif = Math.abs(today.getTime() - date.getTime());
+        var age = (mili_dif / (1000 * 3600 * 24 * 365.25));
+if(regform[0].value!='' &&  email.test(regform[1].value) && pass.test(regform[2].value) && (regform[3].value=== regform[2].value) && url.test(regform[4].value) && (age > 18.00))
 {button.disabled = false
 }
 else{
@@ -200,6 +215,37 @@ function checkwebsiteurlvalidation () {
   }
        
         
+    }
+}
+function checkbirthdatevalidation () {
+   const bdvalid =  document.getElementById("validationbirthdate")
+   console.log(regform[5].value)
+    if(regform[5].value==''){
+      bdvalid.innerHTML ='The BirthDate field is required'
+      bdvalid.style.display ='block';
+  
+        
+    }
+    if(regform[5].value!=''){
+        regform[5].value 
+        var dateText =  regform[5].value.split("-");
+        month = dateText[1];
+        day = dateText[2];
+        year = dateText[0];
+        var date = new Date(year, month, day);
+        var today = new Date();
+        var mili_dif = Math.abs(today.getTime() - date.getTime());
+        var age = (mili_dif / (1000 * 3600 * 24 * 365.25));
+
+        if(age <18.00)
+        {
+          bdvalid.innerHTML ='You have to be 18 or older'
+      bdvalid.style.display ='block';
+        }
+        else{
+          bdvalid.style.display ='none';
+        }
+       
     }
 }
 
